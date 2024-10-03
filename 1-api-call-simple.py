@@ -15,12 +15,12 @@ response = client.invoke_model(
             "messages": [
                 {
                     "role": "user",
-                    "content": "「人生」を何かに例えてください。その理由も説明してください。",
+                    "content": "",
                 }
             ]
         }
     ),
-    modelId = "anthropic.claude-3-5-sonnet-20240620-v1:0",
+    modelId = "",
     accept = "application/json",
     contentType = "application/json",
 )
