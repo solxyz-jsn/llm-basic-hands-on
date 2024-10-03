@@ -29,6 +29,5 @@ response = client.invoke_model(
 response_body = json.loads(response.get("body").read())
 answer = response_body["content"][0]["text"]
 
-print(response_body)
 # 生成した回答の出力
 print(answer)
