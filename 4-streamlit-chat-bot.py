@@ -5,9 +5,15 @@ from langchain_core.messages import HumanMessage
 # アプリケーションタイトル
 st.title("ハンズオン - チャットボット")
 
-# 使用するモデルの指定
-chat = ChatBedrock(model_id="anthropic.claude-3-5-sonnet-20240620-v1:0")
-
+# 使用するモデルとパラメータの指定
+chat = ChatBedrock(
+    model_id = "anthropic.claude-3-5-sonnet-20240620-v1:0",
+    model_kwargs = {
+        "max_tokens": 1000,
+        "top_p": 0.9,
+        "temperature": 0.7,
+    }
+)
 # チャット履歴の初期化
 if "messages" not in st.session_state:
     st.session_state.messages = []

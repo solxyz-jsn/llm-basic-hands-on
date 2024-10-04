@@ -12,8 +12,8 @@ client = boto3.client("bedrock-runtime", region_name="us-west-2")
 # 検索手段を指定
 retriever = AmazonKnowledgeBasesRetriever(
     # ナレッジベースIDを指定
-    knowledge_base_id="AXENNIVXYK",
-    retrieval_config={"vectorSearchConfiguration": {"numberOfResults": 10}}
+    knowledge_base_id = "AXENNIVXYK",
+    retrieval_config = {"vectorSearchConfiguration": {"numberOfResults": 10}}
 )
 
 # プロンプトのテンプレートを定義
@@ -21,10 +21,14 @@ prompt = ChatPromptTemplate.from_template("以下のcontextに基づいて回答
 
 # LLMを指定
 model = ChatBedrock(
-    client=client,
-    model_id="anthropic.claude-3-5-sonnet-20240620-v1:0",
-    model_kwargs={"max_tokens": 1000},
-    streaming=True
+    client = client,
+    model_id = "anthropic.claude-3-5-sonnet-20240620-v1:0",
+    model_kwargs = {
+        "max_tokens": 1000,
+        "top_p": 0.9,
+        "temperature": 0.7,
+    },
+    streaming = True
 )
 
 # チェーンを定義（検索 → プロンプト作成 → LLM呼び出し → 結果を取得）
