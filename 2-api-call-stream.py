@@ -1,8 +1,10 @@
 import boto3
 import json
 
+# boto3クライアントの作成
 client = boto3.client(service_name='bedrock-runtime', region_name="us-west-2")
-                   
+
+# Bedrockモデルにストリーミングでリクエストを送信
 response = client.invoke_model_with_response_stream(
     body = json.dumps(
         {
@@ -22,7 +24,8 @@ response = client.invoke_model_with_response_stream(
     accept='application/json',
     contentType='application/json'
 )
-    
+
+# ストリーミングレスポンスの各チャンクからテキストデータを抽出し、リアルタイムで出力
 for event in response.get('body', []):
     if chunk := event.get('chunk'):
         chunk_data = json.loads(chunk.get('bytes').decode())
