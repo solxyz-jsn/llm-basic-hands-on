@@ -2,7 +2,7 @@ import boto3
 import json
 
 # boto3クライアントの作成
-client = boto3.client(service_name='bedrock-runtime', region_name="us-west-2")
+client = boto3.client(service_name = 'bedrock-runtime', region_name = "us-west-2")
 
 # Bedrockモデルにストリーミングでリクエストを送信
 response = client.invoke_model_with_response_stream(
@@ -30,4 +30,4 @@ for event in response.get('body', []):
     if chunk := event.get('chunk'):
         chunk_data = json.loads(chunk.get('bytes').decode())
         if text := chunk_data.get('delta', {}).get('text'):
-            print(text, end='', flush=True)
+            print(text, end = '', flush = True)

@@ -15,8 +15,8 @@ chat = ChatBedrock(
 )
 
 # プロンプトの設定
-messages = [HumanMessage(content="秋の俳句を詠んで")]
+messages = [HumanMessage(content = "秋の俳句を詠んで")]
 
 # 回答の生成を行い、生成内容を逐次出力
 for chunk in chat.stream(messages):
-    print(chunk.content, end="", flush=True)
+    print(chunk.content, end = "", flush = True)

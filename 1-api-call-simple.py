@@ -2,7 +2,7 @@ import json
 import boto3
 
 # boto3クライアントの作成
-client = boto3.client("bedrock-runtime", region_name="us-west-2")
+client = boto3.client("bedrock-runtime", region_name = "us-west-2")
 
 # Bedrockのモデルにリクエストを送信
 response = client.invoke_model(

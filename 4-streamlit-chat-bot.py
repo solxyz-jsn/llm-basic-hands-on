@@ -32,7 +32,7 @@ if prompt := st.chat_input("メッセージを入力してください..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     
     # Botメッセージの表示
-    messages = [HumanMessage(content=prompt)]
+    messages = [HumanMessage(content = prompt)]
     with st.chat_message("assistant"):
         result_area = st.empty()
         text = ''
