@@ -1,63 +1,50 @@
 import streamlit as st
 import boto3
 from langchain_chroma import Chroma
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_aws import ChatBedrock, BedrockEmbeddings
 from langchain.schema import HumanMessage
 
 # Amazon Bedrock clientの設定
 def get_bedrock_client():
     return boto3.client(
-        service_name='bedrock-runtime',
-        region_name='us-west-2' 
+        service_name = 'bedrock-runtime',
+        region_name = 'us-west-2' 
     )
 
 # ストリーミング形式の回答を生成
 def generate_answer_streaming(query, vectorstore, bedrock_client):
     # ベクトル化に使用するモデルの設定
     embeddings = BedrockEmbeddings(
-        client=bedrock_client,
-        model_id="cohere.embed-multilingual-v3"
+        client = bedrock_client,
+        model_id = "cohere.embed-multilingual-v3"
     )
 
     # ユーザーの質問をベクトル化
     question_embedding = embeddings.embed_query(query)
 
     # ベクトルストアで質問に最も関連するドキュメントを検索
-    docs = vectorstore.similarity_search_by_vector(question_embedding, k=5)
+    docs = vectorstore.similarity_search_by_vector(question_embedding, k = 5)
+
+    # 検索結果を1つのコンテキストとしてまとめる
+    context = "\n".join([doc.page_content for doc in docs])
 
     # 回答の生成に使用するモデルの設定
     llm = ChatBedrock(
-        client=bedrock_client,
-        model_id="anthropic.claude-3-5-sonnet-20240620-v1:0",
-        streaming=True  # ストリーミングを有効にする
+        client = bedrock_client,
+        model_id = "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        streaming = True
     )
-
-    # コンテキストとして検索結果をまとめる
-    context = "\n".join([doc.page_content for doc in docs])
     
-    # プロンプトテンプレート
-    prompt_template = """
-    以下のコンテキストに基づいて、質問に答えてください。
-
-    コンテキスト:
-    {context}
-
-    質問: {question}
-
-    回答:
-    """
-    prompt = PromptTemplate(
-        input_variables=["context", "question"],
-        template=prompt_template
-    )
+    # プロンプトのテンプレートを定義
+    prompt = ChatPromptTemplate.from_template("以下のcontextに基づいて回答してください: {context} / 質問: {question}")
 
     # プロンプトを生成
-    formatted_prompt = prompt.format(context=context, question=query)
+    formatted_prompt = prompt.format(context = context, question = query)
 
     # HumanMessage形式でプロンプトを作成
     messages = [
-        HumanMessage(content=formatted_prompt)
+        HumanMessage(content = formatted_prompt)
     ]
 
     # LLMで回答の生成
@@ -68,8 +55,8 @@ bedrock_client = get_bedrock_client()
 
 # Chromaベクトルストアの読み込み
 vectorstore = Chroma(
-    collection_name="pdf_embeddings",
-    persist_directory="./chroma_db"
+    collection_name = "pdf_embeddings",
+    persist_directory = "./chroma_db"
 )
 
 # アプリケーションタイトル
