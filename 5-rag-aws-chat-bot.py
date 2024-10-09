@@ -1,13 +1,9 @@
 import streamlit as st
-import boto3
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_aws import ChatBedrock 
 from langchain_community.retrievers.bedrock import AmazonKnowledgeBasesRetriever
-
-# AWS Bedrock クライアントの作成
-client = boto3.client("bedrock-runtime", region_name="us-west-2")
 
 # 検索手段を指定
 retriever = AmazonKnowledgeBasesRetriever(
@@ -21,7 +17,6 @@ prompt = ChatPromptTemplate.from_template("以下のcontextに基づいて回答
 
 # LLMを指定
 model = ChatBedrock(
-    client = client,
     model_id = "anthropic.claude-3-5-sonnet-20240620-v1:0",
     model_kwargs = {
         "max_tokens": 1000,
