@@ -46,15 +46,15 @@ def process_pdfs_to_chroma(pdf_files, collection_name = "pdf_embeddings", persis
         # Chromaに追加
         vectorstore.add_documents(chunks)
 
-if __name__ == "__main__":
-    # 処理したい特定のPDFファイル名をリストで指定（引数がない場合は、ディレクトリ内のすべてを探索する）
-    specific_pdf_files = ["generativeAI-guideline-solxyz.pdf"]  
+
+# 処理したい特定のPDFファイル名をリストで指定（引数がない場合は、ディレクトリ内のすべてを探索する）
+specific_pdf_files = ["generativeAI-guideline-solxyz.pdf"]  
     
-    # 指定されたPDFファイル名のリストを取得（引数がない場合は、ディレクトリ内のすべてを探索する）
-    pdf_files = get_pdf_files(specific_files = specific_pdf_files)
-    if not pdf_files:
-        print("指定されたファイルが見つかりませんでした")
-    else:
-        print(f"{len(pdf_files)}件指定されたPDFファイルが見つかりました\nファイル名: {pdf_files}")
-        process_pdfs_to_chroma(pdf_files)
-        print(f"VectorDBの作成が完了し、'./chroma_db'ディレクトリ配下に保存されました")
+# 指定されたPDFファイル名のリストを取得（引数がない場合は、ディレクトリ内のすべてを探索する）
+pdf_files = get_pdf_files(specific_files = specific_pdf_files)
+if not pdf_files:
+    print("指定されたファイルが見つかりませんでした")
+else:
+    print(f"{len(pdf_files)}件指定されたPDFファイルが見つかりました\nファイル名: {pdf_files}")
+    process_pdfs_to_chroma(pdf_files)
+    print(f"VectorDBの作成が完了し、'./chroma_db'ディレクトリ配下に保存されました")
