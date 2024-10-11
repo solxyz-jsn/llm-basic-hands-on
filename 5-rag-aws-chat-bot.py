@@ -8,7 +8,7 @@ from langchain_community.retrievers.bedrock import AmazonKnowledgeBasesRetriever
 # 検索手段を指定
 retriever = AmazonKnowledgeBasesRetriever(
     # ナレッジベースIDを指定
-    knowledge_base_id = "AXENNIVXYK",
+    knowledge_base_id = "",
     retrieval_config = {"vectorSearchConfiguration": {"numberOfResults": 10}}
 )
 
