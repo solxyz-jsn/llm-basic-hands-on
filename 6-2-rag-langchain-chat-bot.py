@@ -32,7 +32,8 @@ def generate_answer_streaming(query, vectorstore, bedrock_client):
     # 回答の生成に使用するモデルの設定
     llm = ChatBedrock(
         client = bedrock_client,
-        model_id = "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        # TODO：Llama 3.2 モデルに変更予定
+        model_id = "meta.llama3-1-405b-instruct-v1:0",
         streaming = True
     )
     
