@@ -22,13 +22,13 @@ response = client.invoke_model(
                     # ユーザーの役割を指定
                     "role": "user",
                     # プロンプトの入力
-                    "content": "俳句を一句読んでください",
+                    "content": "",
                 }
             ]
         }
     ),
     # モデルIDを指定
-    modelId = "anthropic.claude-3-haiku-20240307-v1:0",
+    modelId = "",
     # レスポンスの形式を指定
     accept = "application/json",
     # リクエストの形式を指定
