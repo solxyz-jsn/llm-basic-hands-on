@@ -47,7 +47,7 @@ def process_pdfs_to_chroma(pdf_files, collection_name = "pdf_embeddings", persis
         vectorstore.add_documents(chunks)
 
 
-# 処理したい特定のPDFファイル名をリストで指定（引数がない場合は、ディレクトリ内のすべてを探索する）
+# 処理したい特定のPDFファイル名をリストで指定
 specific_pdf_files = ["generativeAI-guideline-solxyz.pdf"]  
     
 # 指定されたPDFファイル名のリストを取得（引数がない場合は、ディレクトリ内のすべてを探索する）
