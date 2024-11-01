@@ -33,7 +33,7 @@ def generate_answer_streaming(query, vectorstore, bedrock_client):
     llm = ChatBedrock(
         client = bedrock_client,
         # TODO：Llama 3.2 モデルに変更予定
-        model_id = "meta.llama3-2-90b-instruct-v1:0",
+        model_id = "us.meta.llama3-2-90b-instruct-v1:0",
         streaming = True
     )
     
